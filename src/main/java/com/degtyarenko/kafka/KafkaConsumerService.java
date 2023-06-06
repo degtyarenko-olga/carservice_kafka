@@ -1,6 +1,7 @@
 package com.degtyarenko.kafka;
 
-import lombok.extern.slf4j.Slf4j;
+
+import org.apache.log4j.Logger;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +12,18 @@ import org.springframework.stereotype.Service;
  * @since 19.05.2023
  */
 @Service
-@Slf4j
 public class KafkaConsumerService {
+
+    private static final Logger log = Logger.getLogger(KafkaConsumerService.class);
 
     @KafkaListener(topics = "request_logs", groupId = "first")
     public void consumeRequestLog(String requestLog) {
-        log.info(requestLog);
+        log.info("Received request log: " + requestLog);
     }
 
     @KafkaListener(topics = "token_grant_logs", groupId = "first")
     public void consumeTokenGrantLog(String tokenGrantLog) {
-        log.info(tokenGrantLog);
+        log.info("Received token grant log: " + tokenGrantLog);
     }
 
 }
